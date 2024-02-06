@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplo de JavaScript</title>
+</head>
+<body>
+    <div id="app">
+        <button id="btnNormal">Botón Normal</button>
+        <button id="btnPromise">Botón Promise</button>
+        <button id="btnFetch">Botón Fetch</button>
+        <button id="btnAsyncWait">Botón Async/Await</button>
+    </div>
+
+    <script>
+        // Tu código JavaScript aquí
+        const btnNormal = document.getElementById("btnNormal");
+        const btnPromise = document.getElementById("btnPromise");
+        const btnFetch = document.getElementById("btnFetch");
+        const btnAsyncWait = document.getElementById("btnAsyncWait");
+
+        const app = document.getElementById("app");
+
+        const saludar = (name) => {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    if (name === "") {
+                        reject("El nombre no puede estar vacío");
+                    } else {
+                        resolve(`Hola ${name}`);
+                    }
+                }, 2000);
+            });
+        };
+
+        // Agrega el código de los event listeners aquí...
+        btnPromise.addEventListener("click", (evt) => {
+            console.log("Empieza el proceso");
+            saludar("")
+                .then((response) => {
+                    write(response);
+                })
+                .catch((error) => {
+                    write(error);
+                });
+            console.log("Termina el proceso");
+        });
+
+        btnAsyncWait.addEventListener("click", async () => {
+            console.log("Empieza el proceso");
+            try {
+                const resp = await saludar("UPB");
+                write(resp);
+            } catch (error) {
+                write(error);
+            }
+            console.log("Termina el proceso");
+        });
+
+        btnFetch.addEventListener("click", (evt) => {
+            fetch("http://localhost:8080/tabla.html")
+                .then((response) => response.text())
+                .then((response) => write(response))
+                .catch((err) => console.log(err));
+        });
+
+        // Función de escritura (write) para mostrar resultados
+        function write(text) {
+            const resultDiv = document.createElement("div");
+            resultDiv.textContent = text;
+            app.appendChild(resultDiv);
+        }
+    </script>
+</body>
+</html>
