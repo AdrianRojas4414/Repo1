@@ -5,6 +5,10 @@ const btnAsyncWait = document.getElementById("btnAsyncWait")
 
 const app = document.getElementById("app")
 
+
+
+
+
 const saludar = (name) =>
 {
     return new Promise((resolve,reject) =>
@@ -19,6 +23,10 @@ const saludar = (name) =>
         }, 2000)
     })
 }
+
+
+
+
 
 btnPromise.addEventListener("click",evt =>{
     cnsole.log("Empieza el proceso")
